@@ -1,6 +1,7 @@
 var path,boy,cash,diamonds,jwellery,sword;
 var pathImg,boyImg,cashImg,diamondsImg,jwelleryImg,swordImg, endScreen, endImg;
 var treasureCollection = 0;
+var lives = 3;
 var cashG,diamondsG,jwelleryG,swordGroup;
 var gameState = "RUN";
 
@@ -70,16 +71,19 @@ function draw() {
     }else{
       if(swordGroup.isTouching(boy)) {
         swordGroup.destroyEach();
-        gameState = "END";
+        lives -= 1;
     }
   }
 
-  
+  if(lives<=0){
+   gameState = "END"; 
+  }
   
   drawSprites();
   textSize(20);
   fill("black");
   text("Treasure: "+ treasureCollection,150,30);
+  text("Lives: " + lives, 150, 60);
   if(keyWentDown("r") && (gameState === "END")){
     treasureCollection = 0;
     gameState = "RUN";
